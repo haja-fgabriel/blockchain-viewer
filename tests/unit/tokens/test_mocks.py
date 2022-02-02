@@ -1,8 +1,9 @@
 from dataclasses import fields
 from datetime import datetime
+from typing import List
 from unittest.mock import Mock, patch
 
-from cosmos_client_rest.tokens import TokenPrice, Token
+from cosmos_client_rest.tokens import TokenPrice, Token, get_tokens
 
 import pytest
 
@@ -11,7 +12,7 @@ def get_dataclass_field_names(cls):
     return [*map(lambda f: f.name, fields(cls))]
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def mock_price():
     mock = Mock(spec=get_dataclass_field_names(TokenPrice))
     mock.currency = "ron"
@@ -22,7 +23,7 @@ def mock_price():
     return mock
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def mock_token(mock_price):
     mock = Mock(spec=get_dataclass_field_names(Token))
     mock.denom = "uatom"
@@ -31,18 +32,15 @@ def mock_token(mock_price):
     return mock
 
 
-def get_tokens():
-    return []
-
-
-@pytest.fixture
+@pytest.fixture(scope="session")
 def mock_get_tokens(mock_token):
-    with patch("test_client.get_tokens") as mock:
+    with patch("cosmos_client_rest.tokens.get_tokens") as mock:
         mock.return_value = [mock_token]
         yield mock
 
 
-def test_get_tokens(mock_get_tokens):
+def test_mock_get_tokens(mock_get_tokens):
+    get_tokens = mock_get_tokens
     assert isinstance(get_tokens, Mock)
     result = get_tokens()
     assert len(result) == 1

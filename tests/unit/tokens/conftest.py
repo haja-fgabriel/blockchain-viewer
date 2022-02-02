@@ -1,12 +1,18 @@
 from datetime import datetime, timezone
 from typing import List
+from unittest import mock
+from unittest.mock import patch, Mock
 
 import pytest
+from cosmos_client_rest import tokens
 
+import cosmos_client_rest.tokens
+from cosmos_client_rest.tokens.api import get_tokens as api_get_tokens
 from cosmos_client_rest.tokens import Token, TokenPrice
 from cosmos_client_rest.tokens.parsers import *
 
-sample_string_1 = """[
+
+token_inputstring_1 = """[
     {
         "denom": "uatom",
         "prices": [
@@ -22,16 +28,7 @@ sample_string_1 = """[
     }
 ]"""
 
-expected_output_1 = [
-    Token(
-        "uatom",
-        [TokenPrice("usd", 31.61, 2141915525.8503935, -9.751876631636865, 9062540262.26136)],
-        datetime(2022, 1, 27, 9, 47, 29, tzinfo=timezone.utc),
-    )
-]
-
-
-sample_string_2 = """[
+token_inputstring_2 = """[
     {
         "denom": "uatom",
         "prices": [
@@ -67,6 +64,20 @@ sample_string_2 = """[
     }
 ]"""
 
+sample_input_strings = [
+    token_inputstring_1,
+    token_inputstring_2,
+]
+
+
+expected_output_1 = [
+    Token(
+        "uatom",
+        [TokenPrice("usd", 31.61, 2141915525.8503935, -9.751876631636865, 9062540262.26136)],
+        datetime(2022, 1, 27, 9, 47, 29, tzinfo=timezone.utc),
+    )
+]
+
 expected_output_2 = [
     Token(
         "uatom",
@@ -83,16 +94,29 @@ expected_output_2 = [
     ),
 ]
 
+sample_expected_outputs = [
+    expected_output_1,
+    expected_output_2,
+]
 
-@pytest.mark.parametrize(
-    ("sample_token_list", "expected_result"),
-    [
-        (sample_string_1, expected_output_1),
-        (sample_string_2, expected_output_2),
-    ],
-)
-def test_parser(sample_token_list, expected_result):
-    parser = TokenJSONParser()
-    result = parser.parse(sample_token_list)
-    assert isinstance(result, List)
-    assert result == expected_result
+
+@pytest.fixture(scope="function", params=sample_input_strings)
+def token_string(request):
+    return request.param
+
+
+@pytest.fixture(scope="function", params=sample_expected_outputs)
+def parsed_token(request):
+    return request.param
+
+
+@pytest.fixture(scope="function", params=zip(sample_input_strings, sample_expected_outputs))
+def token_parser_args(request):
+    return request.param[0], request.param[1]
+
+
+@pytest.fixture(scope="function", autouse=True)
+def mock_api(token_string):
+    with patch("cosmos_client_rest.tokens.api_get_tokens") as mock:
+        mock.return_value = token_string
+        yield mock
