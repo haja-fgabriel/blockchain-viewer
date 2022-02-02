@@ -24,7 +24,7 @@ class Token:
 from .parsers import TokenJSONParser
 
 
-def get_tokens():
+def get_tokens(token_id):
     parser = TokenJSONParser()
-    return parser.parse(api_get_tokens())
+    return parser.parse(api_get_tokens(token_id))
     # return [api_get_tokens()]
