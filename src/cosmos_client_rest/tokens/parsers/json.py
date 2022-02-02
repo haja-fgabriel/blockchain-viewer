@@ -1,5 +1,4 @@
-from . import *
-from .. import *
+from ..models import *
 
 import json
 

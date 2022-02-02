@@ -1,13 +1,7 @@
 from datetime import datetime, timezone
-from typing import List
-from unittest import mock
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 import pytest
-from cosmos_client_rest import tokens
-
-import cosmos_client_rest.tokens
-from cosmos_client_rest.tokens.api import get_tokens as api_get_tokens
 from cosmos_client_rest.tokens import Token, TokenPrice
 from cosmos_client_rest.tokens.parsers import *
 
@@ -116,7 +110,6 @@ def token_parser_args(request):
 
 
 @pytest.fixture(scope="function", autouse=True)
-def mock_api(token_string):
-    with patch("cosmos_client_rest.tokens.api_get_tokens") as mock:
-        mock.return_value = token_string
-        yield mock
+def mock_api(monkeypatch, token_string):
+    monkeypatch.setattr("cosmos_client_rest.tokens.api_get_tokens", lambda i: token_string)
+    yield

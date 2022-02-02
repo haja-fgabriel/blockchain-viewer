@@ -9,4 +9,3 @@ def test_token_factory():
     assert instance.denom
     assert instance.prices is not None
     assert isinstance(instance.last_updated, datetime)
-    pass
