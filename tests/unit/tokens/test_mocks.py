@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List
 from unittest.mock import Mock, patch
 
-from cosmos_client_rest.tokens import TokenPrice, Token, get_tokens
+from cosmos_client.tokens import TokenPrice, Token, get_tokens
 
 import pytest
 
@@ -34,7 +34,7 @@ def mock_token(mock_price):
 
 @pytest.fixture(scope="session")
 def mock_get_tokens(mock_token):
-    with patch("cosmos_client_rest.tokens.get_tokens") as mock:
+    with patch("cosmos_client.tokens.get_tokens") as mock:
         mock.return_value = [mock_token]
         yield mock
 

@@ -11,6 +11,6 @@ def sample_validator_list():
 
 @pytest.fixture(scope="function", autouse=True)
 def mock_api(sample_validator_list):
-    with patch("cosmos_client_rest.validators.api_get_validators") as mock:
+    with patch("cosmos_client.validators.api_get_validators") as mock:
         mock.return_value = sample_validator_list
         yield mock

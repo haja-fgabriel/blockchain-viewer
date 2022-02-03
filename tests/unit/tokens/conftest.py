@@ -2,8 +2,8 @@ from datetime import datetime, timezone
 from unittest.mock import patch
 
 import pytest
-from cosmos_client_rest.tokens import Token, TokenPrice
-from cosmos_client_rest.tokens.parsers import *
+from cosmos_client.tokens import Token, TokenPrice
+from cosmos_client.tokens.parsers import *
 
 
 token_inputstring_1 = """[
@@ -111,5 +111,5 @@ def token_parser_args(request):
 
 @pytest.fixture(scope="function", autouse=True)
 def mock_api(monkeypatch, token_string):
-    monkeypatch.setattr("cosmos_client_rest.tokens.api_get_tokens", lambda i: token_string)
+    monkeypatch.setattr("cosmos_client.tokens.api_get_tokens", lambda i: token_string)
     yield

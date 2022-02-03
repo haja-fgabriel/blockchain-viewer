@@ -12,6 +12,6 @@ def sample_blockchain_status():
 
 @pytest.fixture(scope="function", autouse=True)
 def mock_api(sample_blockchain_status):
-    with patch("cosmos_client_rest.blockchain.api_get_blockchain_status") as mock:
+    with patch("cosmos_client.blockchain.api_get_blockchain_status") as mock:
         mock.return_value = sample_blockchain_status
         yield mock

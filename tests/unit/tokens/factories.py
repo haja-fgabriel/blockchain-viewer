@@ -6,7 +6,7 @@ import factory
 import factory.random
 import faker
 
-from cosmos_client_rest.tokens import Token, TokenPrice
+from cosmos_client.tokens import Token, TokenPrice
 
 fake = faker.Faker()
 

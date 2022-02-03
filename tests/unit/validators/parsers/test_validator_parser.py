@@ -1,8 +1,8 @@
 import json
 from typing import Any, Dict, List
 
-from cosmos_client_rest.validators.models import Validator, ValidatorUptime
-from cosmos_client_rest.validators.parsers.json import ValidatorJSONParser, ValidatorUptimeJSONParser
+from cosmos_client.validators.models import Validator, ValidatorUptime
+from cosmos_client.validators.parsers.json import ValidatorJSONParser, ValidatorUptimeJSONParser
 
 
 def parse_sample(sample):

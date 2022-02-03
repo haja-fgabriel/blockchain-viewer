@@ -1,4 +1,4 @@
-from cosmos_client_rest.blockchain import get_blockchain_status, BlockchainStatus
+from cosmos_client.blockchain import get_blockchain_status, BlockchainStatus
 
 
 def test_get_blockchain_status():

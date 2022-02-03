@@ -3,8 +3,8 @@ from typing import List
 
 import pytest
 
-from cosmos_client_rest.tokens import Token, TokenPrice
-from cosmos_client_rest.tokens.parsers import *
+from cosmos_client.tokens import Token, TokenPrice
+from cosmos_client.tokens.parsers import *
 
 
 def test_parser(token_parser_args):

@@ -1,10 +1,10 @@
 import json
 from typing import Dict, List
 
-from cosmos_client_rest.blockchain.models import TokenStatus
+from cosmos_client.blockchain.models import TokenStatus
 
-from cosmos_client_rest.blockchain.parsers import BlockchainStatusJSONParser, BlockchainStatus
-from cosmos_client_rest.blockchain.parsers.json import TokenStatusJSONParser
+from cosmos_client.blockchain.parsers import BlockchainStatusJSONParser, BlockchainStatus
+from cosmos_client.blockchain.parsers.json import TokenStatusJSONParser
 
 
 def parse_status(input):

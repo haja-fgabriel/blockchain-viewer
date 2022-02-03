@@ -1,6 +1,6 @@
 from datetime import datetime
 from .factories import TokenFactory
-from cosmos_client_rest.tokens import Token
+from cosmos_client.tokens import Token
 
 
 def test_token_factory():

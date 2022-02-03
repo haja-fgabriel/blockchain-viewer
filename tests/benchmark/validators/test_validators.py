@@ -1,6 +1,6 @@
 from typing import List
 
-from cosmos_client_rest.validators import get_validators, Validator, ValidatorUptime
+from cosmos_client.validators import get_validators, Validator, ValidatorUptime
 
 
 def test_get_validators():

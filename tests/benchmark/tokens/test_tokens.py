@@ -1,5 +1,5 @@
 from typing import List
-from cosmos_client_rest.tokens import Token, get_tokens
+from cosmos_client.tokens import Token, get_tokens
 
 
 def test_get_tokens():

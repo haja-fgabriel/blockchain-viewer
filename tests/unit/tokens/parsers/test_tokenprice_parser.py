@@ -1,7 +1,7 @@
 import pytest
 
-from cosmos_client_rest.tokens import TokenPrice
-from cosmos_client_rest.tokens.parsers import TokenPriceJSONParser
+from cosmos_client.tokens import TokenPrice
+from cosmos_client.tokens.parsers import TokenPriceJSONParser
 
 tokenprice_input_string_1 = """[
     {
