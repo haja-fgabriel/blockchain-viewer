@@ -24,4 +24,4 @@ class BlockchainStatus:
     not_bonded_tokens: int
     inflation: str
     community_pool: List[TokenStatus]
-    timestamp: datetime
+    timestamp: str
