@@ -1,2 +1,5 @@
+import requests
+
+
 def get_blockchain_status():
-    pass
+    return requests.get("https://api.cosmostation.io/v1/status").text

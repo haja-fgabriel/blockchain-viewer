@@ -14,4 +14,4 @@ def sample_blockchain_status():
 def mock_api(sample_blockchain_status):
     with patch("cosmos_client_rest.blockchain.api_get_blockchain_status") as mock:
         mock.return_value = sample_blockchain_status
-        yield
+        yield mock

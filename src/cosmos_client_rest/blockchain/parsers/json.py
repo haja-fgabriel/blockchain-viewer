@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 from typing import Dict, Any, List
 
-from cosmos_client_rest.blockchain import BlockchainStatus, TokenStatus
+from ..models import BlockchainStatus, TokenStatus
 
 
 class TokenStatusJSONParser:
