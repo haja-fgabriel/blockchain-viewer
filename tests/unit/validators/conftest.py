@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 import pytest
 
@@ -9,8 +9,14 @@ def sample_validator_list():
         return f.read()
 
 
+@pytest.fixture
+def sample_block_list():
+    with open("tests/unit/validators/sample_block_list.json", "r") as f:
+        return f.read()
+
+
 @pytest.fixture(scope="function", autouse=True)
-def mock_api(sample_validator_list):
-    with patch("cosmos_client.validators.api_get_validators") as mock:
-        mock.return_value = sample_validator_list
-        yield mock
+def mock_api(monkeypatch, sample_validator_list, sample_block_list):
+    monkeypatch.setattr("cosmos_client.validators.api_get_validators", Mock(return_value=sample_validator_list))
+    monkeypatch.setattr("cosmos_client.validators.api_get_validator_blocks", Mock(return_value=sample_block_list))
+    yield

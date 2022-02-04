@@ -38,10 +38,10 @@ def fields_equal(parsed_status: Dict, result: BlockchainStatus):
     )
 
 
-def test_blockchain_status_parser(sample_blockchain_status):
-    parsed_status = parse_status(sample_blockchain_status)
+def test_blockchain_status_parser(sample_hub_status):
+    parsed_status = parse_status(sample_hub_status)
     parser = BlockchainStatusJSONParser()
-    result = parser.parse(sample_blockchain_status)
+    result = parser.parse(sample_hub_status)
     assert isinstance(result, BlockchainStatus)
     assert fields_equal(parsed_status, result)
 
